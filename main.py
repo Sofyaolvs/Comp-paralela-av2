@@ -10,20 +10,18 @@ def criar_grafo_multiplicacao():
     for num in numeros_base:
         grafo[num] = []
         
-        # Adiciona multiplicações de 2 a 10
+
         for multiplicador in range(2, 11):
             resultado = num * multiplicador
             if resultado <= 100:  # limite máximo de 100
                 grafo[num].append(resultado)
         
-        # Também adiciona divisões se o resultado existir no grafo
         for divisor in range(2, 11):
             if num % divisor == 0:
                 resultado = num // divisor
                 if resultado >= 1:
                     grafo[num].append(resultado)
     
-    # Garante que todos os resultados tenham entrada no grafo
     todos_numeros = set()
     for conexoes in grafo.values():
         todos_numeros.update(conexoes)
@@ -31,7 +29,6 @@ def criar_grafo_multiplicacao():
     for num in todos_numeros:
         if num not in grafo:
             grafo[num] = []
-            # Adiciona algumas conexões básicas
             for divisor in range(2, 11):
                 if num % divisor == 0:
                     resultado = num // divisor
@@ -105,11 +102,10 @@ def mostrar_operacao(num1, num2):
 def main():
     print("BUSCA PARALELA COM MULTIPLICAÇÕES (ATÉ 10)")
     print("Metodologia de Foster")
-    # Cria o grafo
+    # Criar o grafo
     grafo = criar_grafo_multiplicacao()
     print(f"Grafo criado com {len(grafo)} números")
     
-    # Exemplo de conexões
     print(f"\nExemplo: o número 5 pode ir para: {grafo[5][:5]}...")
     
     # TESTE 1: Pequeno
@@ -117,7 +113,7 @@ def main():
     
     inicio_seq = 3
     destino = 30
-    # Sequencial
+
     print(f"\n -- EXECUÇÃO SEQUENCIAL --")
     print("-" * 40)
     print(f"Buscando caminhos de {inicio_seq} até {destino}")
@@ -167,12 +163,11 @@ def main():
     destino = 96
     origens = [2, 3, 4, 6, 8, 12]
     
-    # Sequencial
     print(f"\n - SEQUENCIAL: {inicio_seq} até {destino}")
     caminhos_seq2, tempo_seq2 = busca_sequencial(grafo, inicio_seq, destino)
     print(f"Caminhos: {len(caminhos_seq2)}, Tempo: {tempo_seq2:.6f}s")
     
-    # Paralelo
+
     print(f"\n - PARALELO: {origens} até {destino}")
     resultados_par2, tempo_par2 = busca_paralela_foster(grafo, origens, destino)
     total2 = sum(len(c) for c in resultados_par2.values())
