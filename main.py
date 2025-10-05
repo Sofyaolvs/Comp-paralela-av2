@@ -152,7 +152,9 @@ def main():
     print(f"\n -- ANÁLISE --")
     if tempo_par > 0:
         speedup = tempo_seq / tempo_par
-        print(f"Speedup: {speedup:.2f}")
+        eficiencia = (speedup / 4) * 100  # 4 workers
+        print(f"Speedup: {speedup:.2f}x")
+        print(f"Eficiência: {eficiencia:.1f}%")
         if speedup > 1:
             print("Versão paralela foi mais rápida!")
         else:
@@ -179,7 +181,9 @@ def main():
     # Análise final
     if tempo_par2 > 0:
         speedup2 = tempo_seq2 / tempo_par2
+        eficiencia2 = (speedup2 / 4) * 100  # 4 workers
         print(f"\nSpeedup: {speedup2:.2f}x")
+        print(f"Eficiência: {eficiencia2:.1f}%")
     
 
 if __name__ == "__main__":
